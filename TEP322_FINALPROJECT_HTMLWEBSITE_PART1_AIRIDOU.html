@@ -1,0 +1,211 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-serif,'Georgia',serif);background:var(--color-background-tertiary);color:var(--color-text-primary)}
+.site-header{background:var(--color-background-primary);border-bottom:2px solid var(--color-text-primary);padding:1rem 0;text-align:center}
+.site-title{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-secondary);font-family:var(--font-sans);margin-bottom:4px}
+.site-name{font-size:26px;font-weight:700;letter-spacing:-0.02em;font-family:var(--font-serif)}
+.site-meta{font-size:11px;color:var(--color-text-secondary);font-family:var(--font-sans);margin-top:4px;border-top:0.5px solid var(--color-border-tertiary);padding-top:6px}
+nav{background:var(--color-background-primary);border-bottom:0.5px solid var(--color-border-tertiary);padding:0;overflow-x:auto;white-space:nowrap}
+nav .nav-inner{display:inline-flex;min-width:100%;justify-content:center;padding:0 1rem}
+nav button{font-family:var(--font-sans);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:10px 14px;border:none;background:none;color:var(--color-text-secondary);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+nav button:hover{color:var(--color-text-primary)}
+nav button.active{color:var(--color-text-primary);border-bottom:2px solid var(--color-text-primary);font-weight:500}
+.page{display:none;max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
+.page.active{display:block}
+.article-kicker{font-family:var(--font-sans);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.75rem}
+h1.article-title{font-size:36px;line-height:1.15;font-weight:700;margin-bottom:0.75rem;font-family:var(--font-serif)}
+.article-subhead{font-size:19px;color:var(--color-text-secondary);font-weight:400;margin-bottom:1rem;font-family:var(--font-serif);font-style:italic}
+.byline{font-family:var(--font-sans);font-size:12px;color:var(--color-text-secondary);border-top:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary);padding:8px 0;margin-bottom:1.5rem}
+.article-img{width:100%;margin:1.25rem 0;border-radius:4px;display:block}
+.article-img.img-top{margin-top:0}
+p.body{font-size:17px;line-height:1.75;margin-bottom:1.1rem;font-family:var(--font-serif)}
+em.stress{font-style:normal;font-weight:700}
+.banner-question{border:2px solid var(--color-text-primary);border-radius:var(--border-radius-md);padding:1.25rem 1.5rem;margin:1.75rem 0;text-align:center;font-size:22px;font-weight:700;font-family:var(--font-serif);line-height:1.3}
+.banner-stat{background:var(--color-background-secondary);border:2px solid var(--color-border-primary);border-radius:var(--border-radius-md);padding:1rem 1.25rem;margin:1.75rem 0;font-size:18px;font-weight:700;font-family:var(--font-serif);line-height:1.4}
+.banner-quote{border:2px solid var(--color-border-primary);border-radius:var(--border-radius-md);padding:1.5rem 1.75rem;margin:1.75rem 0;position:relative}
+.banner-quote::before{content:'\201C';font-size:60px;line-height:1;color:var(--color-text-secondary);position:absolute;top:-10px;left:14px;font-family:var(--font-serif)}
+.banner-quote p{font-size:16px;line-height:1.65;padding-left:1rem;color:var(--color-text-primary);font-family:var(--font-serif)}
+.banner-dialogue{border:2px solid var(--color-border-primary);border-radius:var(--border-radius-md);padding:1.25rem 1.5rem;margin:1.75rem 0;font-size:16px;font-family:var(--font-serif);line-height:2}
+.banner-dialogue .dline{padding:2px 0}
+.banner-final{border:2px solid var(--color-text-primary);border-radius:var(--border-radius-md);padding:1.25rem 1.5rem;margin:1.75rem 0;display:grid;gap:8px}
+.banner-final p{font-size:16px;line-height:1.6;font-family:var(--font-serif)}
+.last-line{font-size:21px;font-weight:700;font-family:var(--font-serif);line-height:1.3;margin-top:1.25rem;text-align:center;letter-spacing:-0.01em}
+.ref-section{margin-top:2.5rem;border-top:0.5px solid var(--color-border-tertiary);padding-top:1.5rem}
+.ref-section h2{font-family:var(--font-sans);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;color:var(--color-text-secondary)}
+.ref-list{font-family:var(--font-sans);font-size:12px;line-height:1.7;color:var(--color-text-secondary)}
+.ref-list li{margin-bottom:0.5rem;padding-left:0.25rem}
+.page-footer{text-align:center;margin-top:3rem;padding-top:1.5rem;border-top:0.5px solid var(--color-border-tertiary);font-family:var(--font-sans);font-size:11px;color:var(--color-text-secondary)}
+.nav-btn-row{display:flex;justify-content:space-between;margin-top:2.5rem;gap:1rem}
+.nav-btn-row button{font-family:var(--font-sans);font-size:12px;padding:8px 16px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer;border-radius:var(--border-radius-md)}
+.nav-btn-row button:hover{background:var(--color-background-secondary)}
+.brampton-fact{background:var(--color-background-secondary);border:2px solid var(--color-border-primary);border-radius:var(--border-radius-md);padding:0.85rem 1.1rem;margin:1.25rem 0;font-weight:700;font-size:16px;font-family:var(--font-serif)}
+</style>
+
+<div class="site-header">
+  <div class="site-title">TEP322 — Language and Power</div>
+  <div class="site-name">Toronto, and the Surging Cost to Survive</div>
+  <div class="site-meta">Author: Aaron "Airi" Dou &nbsp;·&nbsp; Published: April 8, 2026 – 5:36AM EST &nbsp;·&nbsp; Prof. Rob Irish</div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <button class="active" onclick="goTo(0)">I. Not So Different</button>
+    <button onclick="goTo(1)">II. No Place to Live</button>
+    <button onclick="goTo(2)">III. No Place to Go</button>
+    <button onclick="goTo(3)">IV. New Generation</button>
+    <button onclick="goTo(4)">V. That Bad?</button>
+    <button onclick="goTo(5)">VI. Cost to Survive</button>
+    <button onclick="goTo(6)">VII. References</button>
+  </div>
+</nav>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p0">
+  <div class="article-kicker">Index 1 · Home Page</div>
+  <h1 class="article-title">New York and Toronto, Not so Different After All</h1>
+  <div class="byline">By Aaron "Airi" Dou &nbsp;·&nbsp; April 8, 2026</div>
+  <img class="article-img img-top" src="https://www.bowdoin.edu/news/2026/images/26001729297956-copy.jpg" alt="Zohran Mamdani" onerror="this.style.display='none'">
+  <p class="body">Zohran Mamdani, the newly elected New York City mayor won not because of his wealth, or his elitism, but he offered the opposite. His most compelling claims are: freezing the rent, lowering public commute prices, and lessening the burden for childcare costs. <em class="stress">Basic human rights.</em> Not a dream nor a utopia, but a simple vision for the city- a city where people can live without breaking their bank accounts. People called him "radical", where his claims are normalized in Europe [1].</p>
+  <div class="banner-question">Have our standards lowered that much?</div>
+  <p class="body">What does this have to do with Toronto? Sure, Toronto is not New York City, but you would see that we are far more similar than different. When was the last time you went to Loblaws and felt shocked that grocery prices rose again? When was the last time you paid your rent and watched your paycheck disappear? When was the last time you took the TTC worried that you'd either accidentally inhale secondhand crack or harassed by power-tripping fare inspectors? Not so different from New York City after all, are we. Zohran argues that New York City belongs to the working people of the city; So let me ask one last question:</p>
+  <div class="banner-question">When was the last time you felt like this city belonged to you?</div>
+  <p class="body">My answer is never; Or at least not after the sad passing of Rob Ford, an anti-elitest mayor for the people [2], may he rest in peace. The people of this city deserve more, we deserve a city that does not rob us of a place to live, we deserve a city that does not rob us of a way to commute, we deserve a city that allows for the next generation to prosper, not suffer. <em class="stress">Toronto should learn from Zohran.</em></p>
+  <img class="article-img" src="https://canadiangeographic.ca/wp-content/uploads/2022/10/amazing-toronto-skyline-1.jpg" alt="Toronto Skyline" onerror="this.style.display='none'">
+  <div class="nav-btn-row"><span></span><button onclick="goTo(1)">Next: No Place Left to Live →</button></div>
+  <div class="page-footer">Toronto, and the Surging Cost to Survive · Aaron "Airi" Dou · TEP322</div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p1">
+  <div class="article-kicker">Index 2</div>
+  <h1 class="article-title">No Place Left to Live</h1>
+  <div class="byline">By Aaron "Airi" Dou &nbsp;·&nbsp; April 8, 2026</div>
+  <p class="body">I remember last summer where my roommates and I searched for a new place to live. Clicks after clicks, hope slowly turned to despair- not because there aren't places to live, just not ones affordable for two full-time employees, much less adding a student (myself) to the mix. The average rent in Toronto costs over $2,900 a month [3], and considering the average income for Torontonians to be $62,000 a year [4], that is over half your salary spent just to have a roof over your head.</p>
+  <img class="article-img" src="https://liv.rent/blog/wp-content/uploads/2020/12/toronto_rental_market_livrent_rental_resources_2020_12_10-1024x744.png" alt="Toronto Rental Market" onerror="this.style.display='none'">
+  <div class="banner-stat">Over half the average Torontonian salary spent on rent.</div>
+  <p class="body">In 2018, the province removed rent control in hopes to motivate new rental constructions [3]. One would think that would lower rent prices, after all, more houses should equate to lower housing prices; The opposite happened, prices skyrocketed upwards of 35% in the following years [5].</p>
+  <p class="body">Uncontrolled rent allows landlords to unreasonably jack prices upwards. According to CCPA [6]:</p>
+  <div class="banner-quote"><p>"Between 2014 and 2023, Ontario's annual rent increase guidelines officially allowed landlords to increase residential rents by 16.5 per cent. Yet over that period, average rents actually went up by 54.5 per cent, more than three times the guideline rate."</p></div>
+  <p class="body">The freedom to live where you wish. To live near your family, to live near your friends, to live near your job or school, it all hinges on the mercy of your landlord. Although not impossible to rent a place, it means by doing so, you are sacrificing over half your hard earned paycheck for a basic necessity. <em class="stress">Toronto should take notes from Zohran.</em></p>
+  <div class="nav-btn-row"><button onclick="goTo(0)">← New York and Toronto</button><button onclick="goTo(2)">Next: No Place Left to Go →</button></div>
+  <div class="page-footer">Toronto, and the Surging Cost to Survive · Aaron "Airi" Dou · TEP322</div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p2">
+  <div class="article-kicker">Index 3</div>
+  <h1 class="article-title">No Place Left to Go</h1>
+  <div class="byline">By Aaron "Airi" Dou &nbsp;·&nbsp; April 8, 2026</div>
+  <img class="article-img img-top" src="https://www.tripsavvy.com/thmb/k2O2jS7b9xQTlN2-Y3XP2K1NtNM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/toronto-streetcar-5b86ecb2c9e77c0050bb9c83.jpg" alt="Toronto Streetcar" onerror="this.style.display='none'">
+  <p class="body">I remember the last time I took the TTC Streetcar: <em class="stress">I was <em style="font-style:italic;font-weight:900">late</em> to school</em>. Frequent delays, closures, and increasing costs leads the people to lose trust in Toronto's main form of transit [7]. The dependence on fare revenue is a major flaw, fewer riders directly means less income.</p>
+  <div class="banner-question">How do you expect to fix a broken system by telling the people to use it more?</div>
+  <p class="body">The mindset of people thinking: <em class="stress">"If they can neglect us, then we can neglect them"</em>, and placing fare inspectors does not help the issue. Seeing how people have been mistreated and harassed by them [8], it only paints more of a negative picture of the current transit system.</p>
+  <p class="body">It isn't much better if you drive a car; Constant traffic on the 401 highway, hiking gas prices (more expensive than California!), and the cost of insurance makes it miserable for commuters.</p>
+  <div class="brampton-fact">Did you know that Brampton has the highest automotive insurance rate in the entirety of North America? [9]</div>
+  <img class="article-img" src="https://www.theglobeandmail.com/resizer/v2/OBD7MCWJKVFO5MG72XUULTQ5KY.JPG?auth=8302a8f7ecde0626bdd27ade683e63e30b4987bb31c43d01ed5b416da610f5b1&width=1200&height=1200&quality=80&smart=true" alt="Traffic" onerror="this.style.display='none'">
+  <p class="body">Regardless if you drive a car, take the streetcar, or ride the subway; Regardless if you're a student commuting from work, a nurse ending a 12-hour shift dreading the ttc ride back home, or a parent stuck in traffic after dropping their kids off at school; We can all agree that Toronto's commute is one of the worst things about the city. <em class="stress">Toronto should be more like Zohran's NYC.</em></p>
+  <div class="nav-btn-row"><button onclick="goTo(1)">← No Place Left to Live</button><button onclick="goTo(3)">Next: No Place for the New Generation →</button></div>
+  <div class="page-footer">Toronto, and the Surging Cost to Survive · Aaron "Airi" Dou · TEP322</div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p3">
+  <div class="article-kicker">Index 4</div>
+  <h1 class="article-title">No Place for the New Generation</h1>
+  <div class="byline">By Aaron "Airi" Dou &nbsp;·&nbsp; April 8, 2026</div>
+  <p class="body">I have had this conversation many times from older friends and family:</p>
+  <div class="banner-dialogue">
+    <div class="dline">"Would you ever consider having a child?"</div>
+    <div class="dline">"Haha, no."</div>
+    <div class="dline">"Oh, why not?"</div>
+    <div class="dline"><em class="stress">"It's too expensive."</em></div>
+  </div>
+  <img class="article-img" src="https://www.thegrindmag.ca/wp-content/uploads/2024/03/OCBCC.Canoe_.12_23.47-scaled.jpg" alt="Childcare in Ontario" onerror="this.style.display='none'">
+  <p class="body"><em class="stress">"It's too expensive."</em></p>
+  <p class="body">Other than subsidized daycare programs, the average cost for infant daycare in Toronto costs over $1,700 a month [10], almost, if not more than the cost of rent. How do you expect a parent to work and take care of their infant child? The simple answer is: you can't. Having a child in Toronto is not a question, it's impossible.</p>
+  <div class="banner-stat">Toronto should aim to create a city where the future generation can be a possibility, not a hopeless dream.</div>
+  <p class="body">For those who decided to try anyways, the waitlist for childcare is already at maximum capacity. Ever since the province of Ontario joined the "national $10-a-day program", the waitlist for childcare skyrocketed to unprecedented degrees [11]. Aspiring parents in Toronto are constantly advised to register their child years before they are born, for a chance at a spot for childcare after spending years in a queue.</p>
+  <p class="body">Although this program is a step towards a positive future, it is a broken-promise fueled by staffing shortages, underfunded budgeting, and a program unable to meet the demand it itself created. For such a big city that Toronto is, parenthood should not be a waiting list, and the next generation shouldn't be a hopeless dream. <em class="stress">Toronto should take a page from Zohran.</em></p>
+  <div class="nav-btn-row"><button onclick="goTo(2)">← No Place Left to Go</button><button onclick="goTo(4)">Next: Toronto Can't be THAT Bad Right? →</button></div>
+  <div class="page-footer">Toronto, and the Surging Cost to Survive · Aaron "Airi" Dou · TEP322</div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="p4">
+  <div class="article-kicker">Index 5</div>
+  <h1 class="article-title">Toronto Can't be THAT Bad Right?</h1>
+  <div class="byline">By Aaron "Airi" Dou &nbsp;·&nbsp; April 8, 2026</div>
+  <p class="body">So what if rent increases? Just build more houses, just remove zoning restrictions, just let competition bring each other's prices down. The argument goes much deeper than these obvious, although incomplete, sentiments. Houses <em class="stress">were</em> built, restrictions <em class="stress">were</em> removed, and competition did <em class="stress">occur</em>.</p>
+  <div class="banner-stat">Prices are still higher than ever.</div>
+  <p class="body">Increasing supply is merely a bandaid on the systemic issue of governmental policies. It doesn't help building more houses if it costs more to sell than to build it [12]; That's backwards logic. The government needs to start treating housing as a public necessity, the government should provide easier opportunities for the people to have a roof over their head. I'm sure the people who got forcefully kicked out of their tents in Trinity Bellwoods would agree [13].</p>
+  <p class="body"><em class="stress">So implement new policies, make it easier for the people.</em></p>
+  <img class="article-img" src="https://storeys.com/media-library/trinity-bellwoods-e1628014767523.jpg?id=34012327&width=1200&height=600&coordinates=0%2C50%2C0%2C50" alt="Trinity Bellwoods Park" onerror="this.style.display='none'">
+  <p class="body">That is also a naive understanding of the bigger issue: <em class="stress">Time</em>. There is no more time for people to wait, their landlord demands a paycheck within the <em class="stress">next month</em>, their work still requires them to commute <em class="stress">tomorrow morning</em>, and their children's mouths need to be fed <em class="stress">tonight</em>.</p>
+  <p class="body">Increased rent, underfunded transit, and a complete utter lack of universal childcare are not a result of "the market" or "the economy". The market and economy is a result of poor political choices, aimed to benefit the wealthy elites, not the people.</p>
+  <div class="banner-stat">The people are left with no more money to live, and even less patience to wait for it to change.</div>
+  <p class="body"><em class="stress">Toronto needs to learn from Zohran, now.</em></p>
+  <div class="nav-btn-row"><button onclick="goTo(3)">← No Place for the New Generation</button><button onclick="goTo(5)">Next: Toronto, and the Surging Cost to Survive →</button></div>
+  <div class="page-footer">Toronto, and the Surging Cost to Survive · Aaron "Airi" Dou · TEP322</div>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="p5">
+  <div class="article-kicker">Index 6 · Conclusion</div>
+  <h1 class="article-title">Toronto, and the Surging Cost to Survive</h1>
+  <div class="article-subhead">If New York can Change, So can Us</div>
+  <div class="byline">By Aaron "Airi" Dou &nbsp;·&nbsp; April 8, 2026</div>
+  <img class="article-img img-top" src="https://media.istockphoto.com/id/626545182/photo/toronto-skyline-with-purple-light-toronto-ontario-canada.jpg?s=612x612&w=0&k=20&c=gTfPgxMvsUZaz7YS3EF2voErqf2MmQRpwlHnO1jVBBc=" alt="Toronto Skyline at Night" onerror="this.style.display='none'">
+  <p class="body">A city belongs to the people:</p>
+  <p class="body"><em class="stress">A collective community</em> of students attending TMU right across Eaton Centre</p>
+  <p class="body"><em class="stress">A collective community</em> of DoorDash and UberEats drivers delivering my $35 McDonalds combo at 3AM</p>
+  <p class="body"><em class="stress">A collective community</em> of starved parents struggling to make sure their kids are not.</p>
+  <p class="body">We should not depend on the ability to buy our freedom, to buy basic needs to live, and</p>
+  <div class="banner-question">when did that become the norm?</div>
+  <div class="banner-final">
+    <p>Toronto needs to fix a broken housing system, providing a roof to those in need of one.</p>
+    <p>Toronto needs to fix a broken transit system, so that employees can get to work on time.</p>
+    <p>Toronto needs to fix a broken childcare subsidy system, so that the next generation becomes a possibility.</p>
+  </div>
+  <p class="body">When housing, transit, and childcare becomes priced beyond the capabilities of the ordinary people of Toronto, a city is created where only the few wealthy people belong, and the majority residents are forced out, just like the residents of Trinity Bellwoods.</p>
+  <p class="body">Toronto does not have to be this way, look at New York City. The question has been answered before:</p>
+  <div class="banner-question" style="font-style:italic">When was the last time this city felt like it belonged to you?<br><span style="font-style:normal;font-size:18px;display:block;margin-top:0.75rem">It can be next month, it can be next week, it can be tomorrow- it can be <strong>Now</strong>.</span></div>
+  <img class="article-img" src="https://www.ctvnews.ca/resizer/v2/ATXQUEYNC5ECLAKJ362EIUTAFY.png?smart=true&auth=87125c115697aaeb04b31b2a6106fc7887c0fc45e9fd06275b36b5f7a7254efc&width=1920&height=1080" alt="Toronto" onerror="this.style.display='none'">
+  <div class="last-line"><em class="stress">Toronto is waiting for you. We are waiting for you. You can become Toronto's Zohran Mamdani.</em></div>
+  <div class="nav-btn-row"><button onclick="goTo(4)">← Toronto Can't be THAT Bad Right?</button><button onclick="goTo(6)">References →</button></div>
+  <div class="page-footer">Toronto, and the Surging Cost to Survive · Aaron "Airi" Dou · TEP322</div>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page" id="p6">
+  <div class="article-kicker">Index 7</div>
+  <h1 class="article-title">References</h1>
+  <div class="byline">APA · Generated via mybib.com</div>
+  <div class="ref-section">
+    <ol class="ref-list">
+      <li>[1] Kassam, A. (2025, November 6). Europeans recognize Zohran Mamdani's supposedly radical policies as "normal". <em>The Guardian.</em> https://www.theguardian.com/us-news/2025/nov/06/europe-zohran-mamdani-policies-normal</li>
+      <li>[2] BBC News. (2016, March 23). Why Rob Ford was a typical Canadian. https://www.bbc.com/news/magazine-35875811</li>
+      <li>[3] Powers, L. (2023, September 25). Ford's PCs rolled back rent control to spur new rental construction. Here's what happened next. <em>CBC News.</em> https://www.cbc.ca/news/canada/toronto/rent-control-toronto-ford-series-1.6974129</li>
+      <li>[4] CareerBeacon. (2026). Is $100,000 a good salary in Toronto, Ontario in 2026? https://www.careerbeacon.com/en/cost-of-living/toronto_ontario/100000-salary</li>
+      <li>[5] Toronto Star. (2025, February 26). One quarter of Toronto's condos now exempt from rent control following 35% hike in rents. https://www.thestar.com/news/gta/one-quarter-of-torontos-condos-now-exempt-from-rent-control-following-35-hike-in-rents/article_bb653598-efd0-11ef-9652-27e5337aaee4.html</li>
+      <li>[6] Tranjan, R., & Vargatoth, P. (2024, April 11). Rent control in Ontario is full of loopholes. <em>Canadian Centre for Policy Alternatives.</em> https://www.policyalternatives.ca/news-research/rent-control-in-ontario-is-full-of-loopholes/</li>
+      <li>[7] Lau, M. (2025, February 5). Terrible Toronto transit system could use healthy dose of private-sector help. <em>Fraser Institute.</em> https://www.fraserinstitute.org/commentary/terrible-toronto-transit-system-could-use-healthy-dose-private-sector-help</li>
+      <li>[8] Reddit. (2025, November 23). TTC fare inspectors are aggressive with the wrong people [Online forum post]. https://www.reddit.com/r/toRANTo/comments/1p4gywg/ttc_fare_inspectors_are_aggressive_with_the_wrong/</li>
+      <li>[9] Canadian Underwriter. (2015, February 17). Top 10 Ontario cities with the highest car insurance rates. https://canadianunderwriter.ca/news/auto/top-10-ontario-cities-with-the-highest-car-insurance-rates/</li>
+      <li>[10] Metropolitan Mom. (2024, September 18). Daycare costs in Toronto: Breakdown by age group & $10-a-day program. https://metropolitanmom.com/daycare-costs-in-toronto-breakdown-by-age-group-10-a-day-program/</li>
+      <li>[11] CBC News. (2024, March 1). Child-care wait lists balloon in many Ontario regions amid $10-a-day program. https://www.cbc.ca/news/canada/toronto/child-care-wait-lists-ontario-1.7130656</li>
+      <li>[12] Missing Middle Initiative. (2025, July 22). Why lower construction costs are the only path. https://www.missingmiddleinitiative.ca/p/why-lower-costs-are-the-only-path</li>
+      <li>[13] Davis, E. N. (2021, June 22). City starts dramatic dismantling of homeless encampment at Trinity Bellwoods Park. <em>Storeys.</em> https://storeys.com/trinity-bellwoods-park-city-dismantle-homeless-encampment/</li>
+    </ol>
+  </div>
+  <div class="nav-btn-row"><button onclick="goTo(5)">← Toronto, and the Surging Cost to Survive</button><button onclick="goTo(0)">↑ Back to Home</button></div>
+  <div class="page-footer">Toronto, and the Surging Cost to Survive · Aaron "Airi" Dou · TEP322 · All text authored by Aaron "Airi" Dou</div>
+</div>
+
+<script>
+function goTo(n){
+  document.querySelectorAll('.page').forEach((p,i)=>{p.classList.toggle('active',i===n)});
+  document.querySelectorAll('nav button').forEach((b,i)=>{b.classList.toggle('active',i===n)});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
